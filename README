@@ -1,0 +1,111 @@
+DevOps Project: React Application Deployment with CI/CD & Monitoring:
+
+Project Overview:
+--> This project demonstrates end-to-end deployment of a production-ready React application using DevOps practices.
+
+It includes:
+- Docker containerization
+- CI/CD pipeline using Jenkins
+- Deployment on AWS EC2
+- Monitoring using Prometheus & Grafana
+
+
+:::::::::::::::::::::::Architecture::::::::::::::::::::::::::::
+Application Flow:
+GitHub → Jenkins → Docker Build → Docker Hub → EC2 Deployment → Monitoring
+
+Tech Stack:
+Frontend: React (Static Build)
+Containerization: Docker, Docker Compose
+CI/CD: Jenkins
+Cloud: AWS EC2
+Monitoring: Prometheus, Grafana, Node Exporter, Blackbox Exporter
+Version Control: Git & GitHub
+
+
+devops-build/
+│── build/
+│── Dockerfile
+│── docker-compose.yml
+│── build.sh
+│── deploy.sh
+│── .gitignore
+│── .dockerignore
+│
+├── monitoring/
+│   ├── docker-compose.yml
+│   ├── prometheus.yml
+│   ├── alert.rules.yml
+
+
+:::::::::::::::::::::::::Docker Setup:::::::::::::::::::::::
+Build Image
+docker build -t mydockerimage31/dev:latest .
+
+Run Container
+docker run -d -p 80:80 --name react-app mydockerimage31/dev:latest
+
+
+:::::::::::::::::::::::::Bash Automation::::::::::::::::::::::
+build.sh
+Builds Docker image
+Pushes to Docker Hub
+
+deploy.sh
+Pulls latest image
+Stops old container
+Deploys new container
+
+
+:::::::::::::::AWS DeploymentL:::::::::::::::::
+EC2 Instance (Ubuntu)
+Ports Open:
+22 (SSH - My IP)
+80 (HTTP - Public)
+8080 (Jenkins)
+3000 (Grafana)
+9090 (Prometheus)
+3001 (Monitoring)
+
+
+:::::::::::::::::::CI/CD Pipeline (Jenkins)::::::::::::::::::::::
+Workflow:
+Code pushed to GitHub
+Webhook triggers Jenkins
+Jenkins:
+Builds Docker image
+Pushes to Docker Hub
+Deploys container on EC2
+
+
+::::::::::::::::::::::Docker Hub:::::::::::::::::::
+Dev Repo (Public): mydockerimage31/dev
+Prod Repo (Private): mydockerimage31/prod
+
+
+:::::::Monitoring Setup:::::::
+Tools Used:
+Prometheus
+Grafana
+Node Exporter
+Blackbox Exporter
+
+Monitoring Features:
+Server metrics (CPU, Memory)
+Application uptime monitoring
+Alert when application goes down
+
+
+::::::::::::::::Alerting::::::::::::::::
+Prometheus alert rules configured
+Detects when application is DOWN
+
+
+:::::::::::::::::Access URLs:::::::::::::::::::
+Application: http://
+Jenkins: http://:8080
+Grafana: http://:3000
+Prometheus: http://:9090
+
+
+"I deployed a production-ready React application using Docker and Nginx on AWS EC2. I implemented a Jenkins CI/CD pipeline integrated with GitHub webhooks to automate build and deployment. For monitoring, I used Prometheus, Grafana, Node Exporter, and Blackbox Exporter to track both system and application health with alerting configured for downtime detection."
