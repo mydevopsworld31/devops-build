@@ -1,0 +1,10 @@
+groups:
+- name: app-alert
+  rules:
+  - alert: AppDown
+    expr: up{job="react-app"} == 0
+    for: 1m
+    labels:
+      severity: critical
+    annotations:
+      summary: "React App is DOWN"
